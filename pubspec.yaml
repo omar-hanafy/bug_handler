@@ -1,0 +1,36 @@
+name: bug_reporting_system
+description: "Custom Flutter Components"
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.6.0
+  flutter: ^3.27.1
+
+topics:
+  - utilities
+  - helpers
+  - extensions
+  - productivity
+  - adaptive
+
+dependencies:
+  async: ^2.13.0
+  battery_plus: ^7.0.0
+  connectivity_plus: ^7.0.0
+  device_info_plus: ^12.2.0
+  equatable: ^2.0.7
+  flutter:
+    sdk: flutter
+  flutter_helper_utils: ^8.5.0
+  meta: any
+  network_info_plus: ^7.0.0
+  package_info_plus: ^9.0.0
+  path_provider: any
+  sentry_flutter: ^9.7.0
+  share_plus: ^12.0.1
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter
