@@ -1,7 +1,10 @@
 name: bug_handler
-description: "todo"
+description: "Composable Flutter error-reporting toolkit with rich context providers, privacy sanitizers, and pluggable reporters."
 version: 1.0.0-dev.1
-publish_to: none
+homepage: https://github.com/omar-hanafy/bug_handler
+repository: https://github.com/omar-hanafy/bug_handler
+issue_tracker: https://github.com/omar-hanafy/bug_handler/issues
+documentation: https://github.com/omar-hanafy/bug_handler#readme
 
 environment:
   sdk: ^3.6.0
@@ -13,6 +16,14 @@ topics:
   - extensions
   - productivity
   - adaptive
+
+platforms:
+  android:
+  ios:
+  macos:
+  linux:
+  web:
+  windows:
 
 dependencies:
   async: ^2.13.0
