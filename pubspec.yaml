@@ -8,7 +8,7 @@ documentation: https://github.com/omar-hanafy/bug_handler#readme
 
 environment:
   sdk: ^3.6.0
-  flutter: ^3.27.1
+  flutter: ">=3.27.1"
 
 topics:
   - utilities
@@ -34,10 +34,10 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_helper_utils: ^8.5.0
-  meta: any
+  meta: ^1.16.0
   network_info_plus: ^7.0.0
   package_info_plus: ^9.0.0
-  path_provider: any
+  path_provider: ^2.1.5
   share_plus: ^12.0.1
 
 dev_dependencies:
