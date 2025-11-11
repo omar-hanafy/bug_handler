@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:bug_reporting_system/core/client.dart';
-import 'package:bug_reporting_system/core/config.dart';
-import 'package:bug_reporting_system/core/result.dart';
-import 'package:bug_reporting_system/exceptions/base_exception.dart';
-import 'package:bug_reporting_system/exceptions/data_exception.dart';
-import 'package:bug_reporting_system/exceptions/platform_exception.dart';
-import 'package:bug_reporting_system/exceptions/unexpected_exception.dart';
+import 'package:bug_handler/core/client.dart';
+import 'package:bug_handler/core/config.dart';
+import 'package:bug_handler/core/result.dart';
+import 'package:bug_handler/exceptions/base_exception.dart';
+import 'package:bug_handler/exceptions/data_exception.dart';
+import 'package:bug_handler/exceptions/platform_exception.dart';
+import 'package:bug_handler/exceptions/unexpected_exception.dart';
 import 'package:flutter/services.dart' as service;
 
 /// Guards an async action:

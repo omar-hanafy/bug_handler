@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:bug_reporting_system/core/event.dart';
-import 'package:bug_reporting_system/reporters/reporter.dart';
+import 'package:bug_handler/core/event.dart';
+import 'package:bug_handler/reporters/reporter.dart';
 import 'package:flutter/foundation.dart';
 
 /// A development reporter that logs event details to the console/debug output.

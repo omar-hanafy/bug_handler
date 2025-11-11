@@ -1,5 +1,5 @@
-import 'package:bug_reporting_system/core/event.dart';
-import 'package:bug_reporting_system/reporters/reporter.dart';
+import 'package:bug_handler/core/event.dart';
+import 'package:bug_handler/reporters/reporter.dart';
 import 'package:share_plus/share_plus.dart';
 
 /// Reporter that shares events via the platform share sheet.

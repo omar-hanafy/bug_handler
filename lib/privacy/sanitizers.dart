@@ -22,8 +22,8 @@
 // - [FilterSanitizer] (bridges filters with sanitizers)
 import 'dart:convert';
 
-import 'package:bug_reporting_system/core/event.dart';
-import 'package:bug_reporting_system/privacy/filters.dart';
+import 'package:bug_handler/core/event.dart';
+import 'package:bug_handler/privacy/filters.dart';
 
 /// Base interface for sanitizers.
 mixin Sanitizer {
@@ -432,7 +432,7 @@ class MaskingStrategy {
 final RegExp _jwtRegex =
     RegExp(r'^[A-Za-z0-9\-_]+\.[A-Za-z0-9\-_]+\.[A-Za-z0-9\-_]+$');
 final RegExp _awsAccessKeyId = RegExp(r'^(AKIA|ASIA)[0-9A-Z]{16}$');
-final RegExp _longToken = RegExp(r'^[A-Za-z0-9\-_\.]{24,}$');
+final RegExp _longToken = RegExp(r'^[A-Za-z0-9\-_.]{24,}$');
 final RegExp _bearerRegex = RegExp(r'^\s*Bearer\s+.+', caseSensitive: false);
 
 String _stringify(Object? v) {

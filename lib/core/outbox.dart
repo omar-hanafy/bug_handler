@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:bug_reporting_system/core/event.dart';
-import 'package:bug_reporting_system/reporters/reporter.dart';
+import 'package:bug_handler/core/event.dart';
+import 'package:bug_handler/reporters/reporter.dart';
 import 'package:path_provider/path_provider.dart';
 
 /// A simple, durable outbox backed by the filesystem.

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:bug_reporting_system/core/config.dart';
-import 'package:bug_reporting_system/exceptions/base_exception.dart';
+import 'package:bug_handler/core/config.dart';
+import 'package:bug_handler/exceptions/base_exception.dart';
 
 /// A compact, typed breadcrumb.
 /// Keep payload small; for large blobs prefer attachments or context providers.

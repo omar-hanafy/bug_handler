@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:bug_reporting_system/core/config.dart' show Severity;
+import 'package:bug_handler/core/config.dart' show Severity;
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 

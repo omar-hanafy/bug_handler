@@ -1,4 +1,4 @@
-import 'package:bug_reporting_system/context/provider.dart';
+import 'package:bug_handler/context/provider.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 

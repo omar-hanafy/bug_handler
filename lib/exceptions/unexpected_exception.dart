@@ -1,4 +1,4 @@
-import 'package:bug_reporting_system/exceptions/base_exception.dart';
+import 'package:bug_handler/exceptions/base_exception.dart';
 import 'package:meta/meta.dart';
 
 /// Generic fallback for uncaught/unknown errors.

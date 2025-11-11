@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:bug_reporting_system/core/client.dart';
-import 'package:bug_reporting_system/core/guard.dart';
-import 'package:bug_reporting_system/exceptions/base_exception.dart';
-import 'package:bug_reporting_system/exceptions/unexpected_exception.dart';
+import 'package:bug_handler/core/client.dart';
+import 'package:bug_handler/core/guard.dart';
+import 'package:bug_handler/exceptions/base_exception.dart';
+import 'package:bug_handler/exceptions/unexpected_exception.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

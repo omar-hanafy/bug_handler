@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:bug_reporting_system/core/event.dart';
+import 'package:bug_handler/core/event.dart';
 import 'package:meta/meta.dart';
 import 'package:path_provider/path_provider.dart';
 

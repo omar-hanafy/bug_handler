@@ -1,4 +1,4 @@
-import 'package:bug_reporting_system/context/provider.dart';
+import 'package:bug_handler/context/provider.dart';
 
 /// Lightweight user/session context. Keep PII to a minimum by default.
 /// If you need to include sensitive traits, a sanitizer in your privacy

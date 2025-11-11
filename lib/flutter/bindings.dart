@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:isolate';
 import 'dart:ui' as ui;
 
-import 'package:bug_reporting_system/core/client.dart';
-import 'package:bug_reporting_system/core/config.dart';
-import 'package:bug_reporting_system/exceptions/base_exception.dart';
-import 'package:bug_reporting_system/exceptions/flutter_error_exception.dart';
-import 'package:bug_reporting_system/exceptions/unexpected_exception.dart';
+import 'package:bug_handler/core/client.dart';
+import 'package:bug_handler/core/config.dart';
+import 'package:bug_handler/exceptions/base_exception.dart';
+import 'package:bug_handler/exceptions/flutter_error_exception.dart';
+import 'package:bug_handler/exceptions/unexpected_exception.dart';
 import 'package:flutter/widgets.dart';
 
 /// Application bootstrap for error reporting.

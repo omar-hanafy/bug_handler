@@ -1,4 +1,4 @@
-import 'package:bug_reporting_system/context/provider.dart';
+import 'package:bug_handler/context/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_helper_utils/flutter_helper_utils.dart';

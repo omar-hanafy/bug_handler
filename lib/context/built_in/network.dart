@@ -1,4 +1,4 @@
-import 'package:bug_reporting_system/context/provider.dart';
+import 'package:bug_handler/context/provider.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 

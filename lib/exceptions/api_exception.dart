@@ -1,6 +1,6 @@
-import 'package:bug_reporting_system/core/config.dart' show Severity;
-import 'package:bug_reporting_system/exceptions/base_exception.dart';
-import 'package:bug_reporting_system/helpers.dart';
+import 'package:bug_handler/core/config.dart' show Severity;
+import 'package:bug_handler/exceptions/base_exception.dart';
+import 'package:bug_handler/helpers.dart';
 import 'package:meta/meta.dart';
 
 /// Exception representing HTTP / API-layer failures.

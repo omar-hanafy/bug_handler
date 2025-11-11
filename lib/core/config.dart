@@ -1,8 +1,8 @@
-import 'package:bug_reporting_system/context/provider.dart';
-import 'package:bug_reporting_system/core/event.dart';
-import 'package:bug_reporting_system/privacy/sanitizers.dart';
-import 'package:bug_reporting_system/reporters/composite_reporter.dart';
-import 'package:bug_reporting_system/reporters/reporter.dart';
+import 'package:bug_handler/context/provider.dart';
+import 'package:bug_handler/core/event.dart';
+import 'package:bug_handler/privacy/sanitizers.dart';
+import 'package:bug_handler/reporters/composite_reporter.dart';
+import 'package:bug_handler/reporters/reporter.dart';
 
 /// System severity levels used across exceptions and policies.
 enum Severity {

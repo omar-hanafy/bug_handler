@@ -1,5 +1,5 @@
-name: bug_reporting_system
-description: "Custom Flutter Components"
+name: bug_handler
+description: "todo"
 version: 1.0.0
 publish_to: none
 
@@ -27,7 +27,6 @@ dependencies:
   network_info_plus: ^7.0.0
   package_info_plus: ^9.0.0
   path_provider: any
-  sentry_flutter: ^9.7.0
   share_plus: ^12.0.1
 
 dev_dependencies:
