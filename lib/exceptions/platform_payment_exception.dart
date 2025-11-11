@@ -5,18 +5,25 @@ import 'package:meta/meta.dart';
 enum PlatformPaymentType {
   /// Apple Pay integration.
   applePay,
+
   /// Google Pay integration.
   googlePay,
+
   /// Samsung Pay integration.
   samsungPay,
+
   /// Huawei Pay integration.
   huaweiPay,
+
   /// Xiaomi Mi Pay integration.
   miPay,
+
   /// PayPal SDK integration.
   paypalSDK,
+
   /// Stripe SDK integration.
   stripeSdk,
+
   /// Amazon Pay integration.
   amazonPay;
 
