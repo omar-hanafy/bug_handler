@@ -25,6 +25,7 @@ linter:
     lines_longer_than_80_chars: false       # let formatter/IDE handle this
     constant_identifier_names: false        # don’t fight existing APIs
     avoid_print: false                      # allow prints in packages by default
+    avoid_redundant_argument_values: false
 
     # You can re-enable more rules later per repo as you like.
 
