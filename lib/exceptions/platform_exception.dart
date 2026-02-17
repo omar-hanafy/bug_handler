@@ -1,12 +1,9 @@
-import 'package:bug_handler/core/config.dart' show Severity;
+import 'package:bug_handler/config/severity.dart';
 import 'package:bug_handler/exceptions/base_exception.dart';
-import 'package:flutter/services.dart' show PlatformException;
-import 'package:meta/meta.dart';
+import 'package:flutter/services.dart';
 
-/// Base exception for platform channel/OS operation failures.
-@immutable
+/// Base class for platform-specific operation exceptions
 class PlatformOperationException extends BaseException {
-  /// Creates a platform exception describing the failed [operation].
   PlatformOperationException({
     required this.operation,
     required super.userMessage,
@@ -15,87 +12,90 @@ class PlatformOperationException extends BaseException {
     this.details,
     super.cause,
     super.stack,
-    Map<String, dynamic> metadata = const {},
+    Map<String, dynamic>? additionalMetadata,
     super.severity,
-    super.isReportable,
+    bool isRetryable = false,
   }) : super(
-          metadata: {
-            'operation': operation,
-            if (code != null) 'code': code,
-            if (details != null) 'details': details,
-            ...metadata,
-          },
-        );
+         metadata: {
+           'operation': operation,
+           'isRetryable': isRetryable,
+           if (code != null) 'code': code,
+           if (details != null) 'details': details,
+           ...?additionalMetadata,
+         },
+       );
 
-  /// Creates a [PlatformOperationException] from a [PlatformException].
+  /// Creates a PlatformOperationException from a PlatformException
   factory PlatformOperationException.fromPlatformException(
     PlatformException e, {
     required String operation,
     String? userMessage,
     String? devMessage,
-    bool isReportable = true,
-    Severity? severity,
+    bool isRetryable = false,
+    ErrorSeverity? severity,
   }) {
-    final s = severity ?? _severityFromCode(e.code);
+    // Determine severity based on error code pattern
+    final determinedSeverity = severity ?? _determineSeverityFromCode(e.code);
+
     return PlatformOperationException(
       operation: operation,
-      userMessage: userMessage ?? _userMessageFromCode(e.code),
-      devMessage: devMessage ?? (e.message ?? 'Unknown platform error.'),
+      userMessage: userMessage ?? _getUserMessageFromCode(e.code),
+      devMessage: devMessage ?? e.message ?? 'Unknown platform error',
       code: e.code,
       details: e.details,
       cause: e,
-      severity: s,
-      isReportable: isReportable,
+      severity: determinedSeverity,
+      isRetryable: isRetryable,
     );
   }
 
-  /// Logical operation name (e.g., "camera_capture").
   final String operation;
-
-  /// Platform-specific error code, when provided by the channel.
   final String? code;
-
-  /// Additional details supplied by the platform.
   final dynamic details;
 
-  /// Indicates whether the platform error represents a timeout.
-  bool get isTimeout => (code ?? '').toLowerCase().contains('timeout');
+  /// Determines if this exception represents a timeout
+  bool get isTimeout => code?.toLowerCase().contains('timeout') ?? false;
 
-  /// Indicates whether the platform error stems from a permission issue.
+  /// Determines if this exception represents a permission error
   bool get isPermissionError =>
-      (code ?? '').toLowerCase().contains('permission');
+      code?.toLowerCase().contains('permission') ?? false;
 
-  static Severity _severityFromCode(String code) {
-    final c = code.toLowerCase();
-    if (c.contains('permission')) return Severity.warning;
-    if (c.contains('timeout')) return Severity.warning;
-    if (c.contains('unavailable')) return Severity.error;
-    if (c.contains('invalid')) return Severity.warning;
-    return Severity.error;
+  static ErrorSeverity _determineSeverityFromCode(String code) {
+    final lowerCode = code.toLowerCase();
+    if (lowerCode.contains('permission')) return ErrorSeverity.warning;
+    if (lowerCode.contains('timeout')) return ErrorSeverity.warning;
+    if (lowerCode.contains('unavailable')) return ErrorSeverity.error;
+    if (lowerCode.contains('invalid')) return ErrorSeverity.warning;
+    return ErrorSeverity.error;
   }
 
-  static String _userMessageFromCode(String code) {
-    final c = code.toLowerCase();
-    if (c.contains('permission')) {
-      return 'Permission denied for this operation.';
+  static String _getUserMessageFromCode(String code) {
+    final lowerCode = code.toLowerCase();
+    if (lowerCode.contains('permission')) {
+      return 'Permission denied for this operation';
     }
-    if (c.contains('timeout')) {
-      return 'Operation timed out. Please try again.';
+    if (lowerCode.contains('timeout')) {
+      return 'Operation timed out. Please try again';
     }
-    if (c.contains('unavailable')) {
-      return 'This feature is currently unavailable.';
+    if (lowerCode.contains('unavailable')) {
+      return 'This feature is currently unavailable';
     }
-    if (c.contains('invalid')) {
-      return 'Invalid request for this operation.';
-    }
-    return 'Operation failed.';
+    return 'Operation failed';
   }
+
+  @override
+  String toString() =>
+      '''
+PlatformOperationException: $operation
+Code: ${code ?? 'N/A'}
+Message: $devMessage
+Details: ${details ?? 'N/A'}
+${cause != null ? '\nCause: $cause' : ''}
+''';
 }
 
-/// Media-specific operation failures (pick/upload/download/process).
-@immutable
+/// Specialized exception for media operations
 class MediaException extends PlatformOperationException {
-  /// Creates a media exception scoped to the given [type] and [mediaType].
   MediaException({
     required MediaOperationType type,
     required this.mediaType,
@@ -106,85 +106,56 @@ class MediaException extends PlatformOperationException {
     super.details,
     super.cause,
     super.stack,
-    bool isRetryable = true,
-    super.isReportable,
+    super.isRetryable = true,
   }) : super(
-          operation: 'media_${type.name}',
-          userMessage: _userMessage(type),
-          devMessage: _devMessage(type, path),
-          severity: _severity(type),
-          metadata: {
-            'mediaOperation': type.name,
-            'mediaType': mediaType,
-            if (path != null) 'path': path,
-            if (mimeType != null) 'mimeType': mimeType,
-            if (fileSize != null) 'fileSize': fileSize,
-            'isRetryable': isRetryable,
-          },
-        );
+         operation: 'media_${type.name}',
+         userMessage: _getUserMessage(type),
+         devMessage: _getDevMessage(type, path),
+         severity: _determineSeverity(type),
+         additionalMetadata: {
+           'mediaType': type.name,
+           'contentType': mediaType,
+           if (path != null) 'path': path,
+           if (mimeType != null) 'mimeType': mimeType,
+           if (fileSize != null) 'fileSize': fileSize,
+         },
+       );
 
-  /// Category of media that was being processed (e.g. `image`).
-  final String mediaType; // e.g. 'image', 'video', 'audio'
+  final String mediaType; // e.g., 'image', 'video', 'audio'
 
-  static String _userMessage(MediaOperationType t) {
-    switch (t) {
-      case MediaOperationType.upload:
-        return 'Failed to upload media.';
-      case MediaOperationType.download:
-        return 'Failed to download media.';
-      case MediaOperationType.picker:
-        return 'Failed to select media.';
-      case MediaOperationType.processing:
-        return 'Failed to process media.';
-      case MediaOperationType.permission:
-        return 'Media permission denied.';
-      case MediaOperationType.format:
-        return 'Unsupported media format.';
-      case MediaOperationType.size:
-        return 'Media file too large.';
-    }
+  static String _getUserMessage(MediaOperationType type) {
+    return switch (type) {
+      MediaOperationType.upload => 'Failed to upload media',
+      MediaOperationType.download => 'Failed to download media',
+      MediaOperationType.picker => 'Failed to select media',
+      MediaOperationType.processing => 'Failed to process media',
+      MediaOperationType.permission => 'Media permission denied',
+      MediaOperationType.format => 'Unsupported media format',
+      MediaOperationType.size => 'Media file too large',
+    };
   }
 
-  static String _devMessage(MediaOperationType t, String? path) {
+  static String _getDevMessage(MediaOperationType type, String? path) {
     final location = path != null ? ' at $path' : '';
-    return 'Media operation ${t.name} failed$location.';
+    return 'Media operation ${type.name} failed$location';
   }
 
-  static Severity _severity(MediaOperationType t) {
-    switch (t) {
-      case MediaOperationType.permission:
-      case MediaOperationType.format:
-      case MediaOperationType.size:
-        return Severity.warning;
-      case MediaOperationType.upload:
-      case MediaOperationType.download:
-      case MediaOperationType.picker:
-      case MediaOperationType.processing:
-        return Severity.error;
-    }
+  static ErrorSeverity _determineSeverity(MediaOperationType type) {
+    return switch (type) {
+      MediaOperationType.permission => ErrorSeverity.warning,
+      MediaOperationType.format => ErrorSeverity.warning,
+      MediaOperationType.size => ErrorSeverity.warning,
+      _ => ErrorSeverity.error,
+    };
   }
 }
 
-/// Types of media operations supported by [MediaException].
 enum MediaOperationType {
-  /// Uploading media to a remote target failed.
   upload,
-
-  /// Downloading media from a remote target failed.
   download,
-
-  /// Selecting media (picker) failed.
   picker,
-
-  /// Post-processing of media (encode/resize/etc.) failed.
   processing,
-
-  /// Permission to access media was denied.
   permission,
-
-  /// Media format was unsupported or invalid.
   format,
-
-  /// Media exceeded configured size limits.
   size,
 }

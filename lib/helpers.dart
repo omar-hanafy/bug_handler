@@ -1,34 +1,32 @@
 // helpers.dart
-import 'package:bug_handler/core/config.dart';
+import 'package:bug_handler/config/severity.dart';
 import 'package:bug_handler/exceptions/api_exception.dart';
 import 'package:flutter_helper_utils/flutter_helper_utils.dart';
 
-/// Wraps an HTTP status code and exposes derived helper properties.
 class HttpStatusCodeInfo {
-  /// Builds metadata helpers for the provided [statusCode].
   HttpStatusCodeInfo(this.statusCode)
-      : isSuccess = statusCode.isSuccessCode,
-        isOk = statusCode.isOkCode,
-        isCreated = statusCode.isCreatedCode,
-        isAccepted = statusCode.isAcceptedCode,
-        isNoContent = statusCode.isNoContentCode,
-        isClientError = statusCode.isClientErrorCode,
-        isServerError = statusCode.isServerErrorCode,
-        isRedirectionCode = statusCode.isRedirectionCode,
-        isTemporaryRedirect = statusCode.isTemporaryRedirect,
-        isPermanentRedirect = statusCode.isPermanentRedirect,
-        isAuthenticationError = statusCode.isAuthenticationError,
-        isValidationError = statusCode.isValidationError,
-        isRateLimitError = statusCode.isRateLimitError,
-        isTimeoutError = statusCode.isTimeoutError,
-        isConflictError = statusCode.isConflictError,
-        isNotFoundError = statusCode.isNotFoundError,
-        isRetryableError = statusCode.isRetryableError,
-        statusCodeRetryDelay = statusCode.statusCodeRetryDelay,
-        statusMessages = statusCode.toHttpStatusMessage,
-        statusUserMessage = statusCode.toHttpStatusUserMessage,
-        statusDevMessage = statusCode.toHttpStatusDevMessage,
-        errorSeverity = _determineSeverity(statusCode);
+    : isSuccess = statusCode.isSuccessCode,
+      isOk = statusCode.isOkCode,
+      isCreated = statusCode.isCreatedCode,
+      isAccepted = statusCode.isAcceptedCode,
+      isNoContent = statusCode.isNoContentCode,
+      isClientError = statusCode.isClientErrorCode,
+      isServerError = statusCode.isServerErrorCode,
+      isRedirectionCode = statusCode.isRedirectionCode,
+      isTemporaryRedirect = statusCode.isTemporaryRedirect,
+      isPermanentRedirect = statusCode.isPermanentRedirect,
+      isAuthenticationError = statusCode.isAuthenticationError,
+      isValidationError = statusCode.isValidationError,
+      isRateLimitError = statusCode.isRateLimitError,
+      isTimeoutError = statusCode.isTimeoutError,
+      isConflictError = statusCode.isConflictError,
+      isNotFoundError = statusCode.isNotFoundError,
+      isRetryableError = statusCode.isRetryableError,
+      statusCodeRetryDelay = statusCode.statusCodeRetryDelay,
+      statusMessages = statusCode.toHttpStatusMessage,
+      statusUserMessage = statusCode.toHttpStatusUserMessage,
+      statusDevMessage = statusCode.toHttpStatusDevMessage,
+      errorSeverity = _determineSeverity(statusCode);
 
   /// Determines error severity based on status code
   static ErrorSeverity _determineSeverity(int statusCode) {
@@ -39,7 +37,6 @@ class HttpStatusCodeInfo {
     return ErrorSeverity.error;
   }
 
-  /// Raw HTTP status code value backing the helpers.
   final int statusCode;
 
   /// Checks if the status code represents a successful response (2xx)
@@ -111,32 +108,31 @@ class HttpStatusCodeInfo {
   /// Determines error severity based on status code
   final ErrorSeverity errorSeverity;
 
-  /// Serializes the normalized status information into a map.
   Map<String, dynamic> toMap() => {
-        'statusCode': statusCode,
-        'isSuccess': isSuccess,
-        'isOk': isOk,
-        'isCreated': isCreated,
-        'isAccepted': isAccepted,
-        'isNoContent': isNoContent,
-        'isClientError': isClientError,
-        'isServerError': isServerError,
-        'isRedirectionCode': isRedirectionCode,
-        'isTemporaryRedirect': isTemporaryRedirect,
-        'isPermanentRedirect': isPermanentRedirect,
-        'isAuthenticationError': isAuthenticationError,
-        'isValidationError': isValidationError,
-        'isRateLimitError': isRateLimitError,
-        'isTimeoutError': isTimeoutError,
-        'isConflictError': isConflictError,
-        'isNotFoundError': isNotFoundError,
-        'isRetryableError': isRetryableError,
-        'statusCodeRetryDelay': statusCodeRetryDelay.inMilliseconds,
-        'statusMessages': statusMessages,
-        'statusUserMessage': statusUserMessage,
-        'statusDevMessage': statusDevMessage,
-        'errorSeverity': errorSeverity.name,
-      };
+    'statusCode': statusCode,
+    'isSuccess': isSuccess,
+    'isOk': isOk,
+    'isCreated': isCreated,
+    'isAccepted': isAccepted,
+    'isNoContent': isNoContent,
+    'isClientError': isClientError,
+    'isServerError': isServerError,
+    'isRedirectionCode': isRedirectionCode,
+    'isTemporaryRedirect': isTemporaryRedirect,
+    'isPermanentRedirect': isPermanentRedirect,
+    'isAuthenticationError': isAuthenticationError,
+    'isValidationError': isValidationError,
+    'isRateLimitError': isRateLimitError,
+    'isTimeoutError': isTimeoutError,
+    'isConflictError': isConflictError,
+    'isNotFoundError': isNotFoundError,
+    'isRetryableError': isRetryableError,
+    'statusCodeRetryDelay': statusCodeRetryDelay.inMilliseconds,
+    'statusMessages': statusMessages,
+    'statusUserMessage': statusUserMessage,
+    'statusDevMessage': statusDevMessage,
+    'errorSeverity': errorSeverity.name,
+  };
 }
 
 /// List of field names that should be considered sensitive and masked/encrypted
@@ -302,11 +298,13 @@ const sensitiveFields = [
 /// Function to check if a field name contains sensitive information
 bool isSensitiveField(String fieldName) {
   final normalizedField = fieldName.toLowerCase().trim();
-  return sensitiveFields.any((field) =>
-      normalizedField == field ||
-      normalizedField.contains(field) ||
-      normalizedField.startsWith(field) ||
-      normalizedField.endsWith(field));
+  return sensitiveFields.any(
+    (field) =>
+        normalizedField == field ||
+        normalizedField.contains(field) ||
+        normalizedField.startsWith(field) ||
+        normalizedField.endsWith(field),
+  );
 }
 
 /// Function to mask sensitive value while preserving some structure
@@ -318,9 +316,7 @@ String maskSensitiveValue(String value) {
   return '${value[0]}${'*' * (value.length - 2)}${value[value.length - 1]}';
 }
 
-/// Convenience helpers for inspecting bug reporting errors.
 extension BugReportSystemExtension on Object? {
-  /// Indicates whether the value is an unauthorized [ApiException].
   bool get isUnauthorizedError {
     final e = this;
     return e is ApiException && e.httpStatusInfo.isAuthenticationError;

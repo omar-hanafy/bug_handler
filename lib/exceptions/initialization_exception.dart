@@ -1,43 +1,32 @@
-import 'package:bug_handler/core/config.dart' show Severity;
+import 'package:bug_handler/config/severity.dart';
 import 'package:bug_handler/exceptions/base_exception.dart';
-import 'package:meta/meta.dart';
 
-/// Failures during setup/bootstrap of critical components.
-@immutable
 class InitializationException extends BaseException {
-  /// Creates an initialization exception scoped to a specific [component].
   InitializationException({
     required String component,
     String? userMessage,
     String? devMessage,
     super.cause,
     super.stack,
-    Map<String, dynamic> metadata = const {},
-    super.isReportable,
+    Map<String, dynamic>? additionalMetadata,
   }) : super(
-          userMessage:
-              userMessage ?? 'Failed to initialize the application component.',
-          devMessage: devMessage ?? 'Initialization failed for: $component',
-          severity: Severity.critical,
-          metadata: {
-            'component': component,
-            ...metadata,
-          },
-        );
+         userMessage: userMessage ?? 'Failed to initialize application',
+         devMessage: devMessage ?? 'Initialization failed for: $component',
+         severity: ErrorSeverity.critical,
+         metadata: {
+           'component': component,
+           ...?additionalMetadata,
+         },
+       );
 }
 
-/// Thrown when a required component is used before being initialized.
-@immutable
 class ComponentNotInitializedException extends InitializationException {
-  /// Creates an exception indicating the referenced component has not been initialized.
   ComponentNotInitializedException({
     required super.component,
     super.cause,
     super.stack,
-    super.metadata,
-    super.isReportable,
   }) : super(
-          userMessage: 'Application setup is incomplete.',
-          devMessage: '$component is not initialized.',
-        );
+         userMessage: 'Application setup incomplete',
+         devMessage: '$component not initialized',
+       );
 }

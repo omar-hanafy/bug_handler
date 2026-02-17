@@ -1,14 +1,14 @@
 name: bug_handler
 description: "Composable Flutter error-reporting toolkit with rich context providers, privacy sanitizers, and pluggable reporters."
-version: 1.0.0-dev.1
+version: 0.0.1-dev.1
 homepage: https://github.com/omar-hanafy/bug_handler
 repository: https://github.com/omar-hanafy/bug_handler
 issue_tracker: https://github.com/omar-hanafy/bug_handler/issues
 documentation: https://github.com/omar-hanafy/bug_handler#readme
 
 environment:
-  sdk: ^3.6.0
-  flutter: ">=3.27.1"
+  sdk: ^3.11.0
+  flutter: ">=3.41.1"
 
 topics:
   - utilities
@@ -17,30 +17,26 @@ topics:
   - productivity
   - adaptive
 
-platforms:
-  android:
-  ios:
-  macos:
-  linux:
-  web:
-  windows:
-
 dependencies:
-  async: ^2.13.0
-  battery_plus: ^7.0.0
-  connectivity_plus: ^7.0.0
-  device_info_plus: ^12.2.0
-  equatable: ^2.0.7
   flutter:
     sdk: flutter
-  flutter_helper_utils: ^8.5.0
-  meta: ^1.16.0
-  network_info_plus: ^7.0.0
-  package_info_plus: ^9.0.0
-  path_provider: ^2.1.5
+  flutter_helper_utils: any
+  equatable: ^2.0.8
+  sentry_flutter: ^9.13.0
   share_plus: ^12.0.1
+  battery_plus: ^7.0.0
+  connectivity_plus: ^7.0.0
+  package_info_plus: ^9.0.0
+  device_info_plus: ^12.3.0
+  network_info_plus: ^7.0.0
+  # do not update
+  async: ^2.13.0
+
+  stream_transform: any
+  meta: any
+  path_provider: any
 
 dev_dependencies:
-  flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
+  very_good_analysis: ^10.2.0
