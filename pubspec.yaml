@@ -31,9 +31,9 @@ dependencies:
   connectivity_plus: ^7.1.1
   device_info_plus: ^13.0.0
   equatable: ^2.0.8
+  dart_helper_utils: ^6.0.0
   flutter:
     sdk: flutter
-  flutter_helper_utils: ^8.5.0
   meta: ^1.17.0
   network_info_plus: ^8.0.0
   package_info_plus: ^10.0.0

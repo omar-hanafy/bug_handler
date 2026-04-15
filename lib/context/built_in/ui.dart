@@ -1,7 +1,6 @@
 import 'package:bug_handler/context/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_helper_utils/flutter_helper_utils.dart';
 
 /// Captures a snapshot of UI‑related data that can help reproduce rendering,
 /// sizing, and theming issues. Marked as [manualReportOnly] to avoid heavy work
@@ -37,14 +36,14 @@ class UIContextProvider extends ContextProvider {
     return <String, dynamic>{
       'theme': {
         'brightness': theme.brightness.name,
-        'primaryColor': theme.primaryColor.toARGBInt(),
+        'primaryColor': theme.primaryColor.toARGB32(),
         'colorScheme': {
           'brightness': theme.colorScheme.brightness.name,
-          'primary': theme.colorScheme.primary.toARGBInt(),
-          'secondary': theme.colorScheme.secondary.toARGBInt(),
-          'background': theme.colorScheme.surface.toARGBInt(),
-          'surface': theme.colorScheme.surface.toARGBInt(),
-          'error': theme.colorScheme.error.toARGBInt(),
+          'primary': theme.colorScheme.primary.toARGB32(),
+          'secondary': theme.colorScheme.secondary.toARGB32(),
+          'background': theme.colorScheme.surface.toARGB32(),
+          'surface': theme.colorScheme.surface.toARGB32(),
+          'error': theme.colorScheme.error.toARGB32(),
         },
         'textTheme': {
           'displayLarge': theme.textTheme.displayLarge?.fontSize,

@@ -1,7 +1,7 @@
 // helpers.dart
 import 'package:bug_handler/core/config.dart';
 import 'package:bug_handler/exceptions/api_exception.dart';
-import 'package:flutter_helper_utils/flutter_helper_utils.dart';
+import 'package:dart_helper_utils/dart_helper_utils.dart';
 
 /// Wraps an HTTP status code and exposes derived helper properties.
 class HttpStatusCodeInfo {
