@@ -26,19 +26,19 @@ platforms:
   windows:
 
 dependencies:
-  async: ^2.13.0
+  async: ^2.13.1
   battery_plus: ^7.0.0
-  connectivity_plus: ^7.0.0
-  device_info_plus: ^12.2.0
-  equatable: ^2.0.7
+  connectivity_plus: ^7.1.1
+  device_info_plus: ^13.0.0
+  equatable: ^2.0.8
   flutter:
     sdk: flutter
   flutter_helper_utils: ^8.5.0
-  meta: ^1.16.0
-  network_info_plus: ^7.0.0
-  package_info_plus: ^9.0.0
+  meta: ^1.17.0
+  network_info_plus: ^8.0.0
+  package_info_plus: ^10.0.0
   path_provider: ^2.1.5
-  share_plus: ^12.0.1
+  share_plus: ^13.0.0
 
 dev_dependencies:
   flutter_lints: ^6.0.0
