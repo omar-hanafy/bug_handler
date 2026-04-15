@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.0.0-dev.2
+- Updated debs
+
 ## 1.0.0-dev.1
 
 - Prepare for publishing: filled out pubspec metadata (links, description, supported platforms).
