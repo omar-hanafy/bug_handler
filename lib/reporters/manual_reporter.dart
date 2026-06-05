@@ -15,10 +15,12 @@ class ManualReporter extends Reporter {
   Future<bool> shareReport(Report report) async {
     try {
       final file = await generateReportFile(report);
-      await Share.shareXFiles(
-        [XFile(file.path)],
-        subject: 'Bug Report',
-        text: 'Error log attached.',
+      await SharePlus.instance.share(
+        ShareParams(
+          files: [XFile(file.path)],
+          subject: 'Bug Report',
+          text: 'Error log attached.',
+        ),
       );
       return true;
     } catch (_) {

@@ -15,8 +15,8 @@ class StorageException extends BaseException {
          severity: ErrorSeverity.error,
          metadata: {
            'operation': operation,
-           if (key != null) 'key': key,
-           if (storageType != null) 'storageType': storageType,
+           'key': ?key,
+           'storageType': ?storageType,
            ...?additionalMetadata,
          },
        );

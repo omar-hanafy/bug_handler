@@ -9,8 +9,7 @@ enum PlatformPaymentType {
   miPay,
   paypalSDK,
   stripeSdk,
-  amazonPay
-  ;
+  amazonPay;
 
   String get displayName {
     return switch (this) {
@@ -72,9 +71,9 @@ class PlatformPaymentException extends BaseException {
          metadata: {
            'paymentType': type.name,
            'errorCode': errorCode,
-           if (transactionId != null) 'transactionId': transactionId,
-           if (amount != null) 'amount': amount,
-           if (currency != null) 'currency': currency,
+           'transactionId': ?transactionId,
+           'amount': ?amount,
+           'currency': ?currency,
            ...?additionalMetadata,
          },
        );

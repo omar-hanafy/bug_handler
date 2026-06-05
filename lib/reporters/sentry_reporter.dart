@@ -18,9 +18,9 @@ class SentryReporter extends Reporter {
           event,
           stackTrace: report.exception.stack,
           hint: Hint.withMap(report.toMap()),
-          withScope: (scope) {
+          withScope: (scope) async {
             scope.level = _getSentryLevel(report.exception.severity);
-            _addCustomContext(scope, report);
+            await _addCustomContext(scope, report);
           },
         );
       } else {
@@ -28,9 +28,9 @@ class SentryReporter extends Reporter {
           report.exception.cause ?? report.exception,
           stackTrace: report.exception.stack,
           hint: Hint.withMap(report.toMap()),
-          withScope: (scope) {
+          withScope: (scope) async {
             scope.level = _getSentryLevel(report.exception.severity);
-            _addCustomContext(scope, report);
+            await _addCustomContext(scope, report);
           },
         );
       }
@@ -96,16 +96,15 @@ class SentryReporter extends Reporter {
     return autoCollectedKeys.contains(key.toLowerCase());
   }
 
-  void _addCustomContext(Scope scope, Report report) {
+  Future<void> _addCustomContext(Scope scope, Report report) async {
     // Only add tags that provide value beyond Sentry's auto-collection
-    scope
-      ..setTag('has_user_message', 'true')
-      ..setTag('has_dev_message', 'true');
+    await scope.setTag('has_user_message', 'true');
+    await scope.setTag('has_dev_message', 'true');
 
     // Add any custom non-duplicate tags
     for (final entry in report.context.entries) {
       if (!_isAutoCollectedContext(entry.key) && entry.value != null) {
-        scope.setTag('custom.${entry.key}', entry.value.toString());
+        await scope.setTag('custom.${entry.key}', entry.value.toString());
       }
     }
   }
@@ -123,10 +122,12 @@ class SentryReporter extends Reporter {
   Future<bool> shareReport(Report report) async {
     final reportFile = await generateReportFile(report);
     try {
-      await Share.shareXFiles(
-        [XFile(reportFile.path)],
-        subject: 'Error Report',
-        text: 'Error report details attached',
+      await SharePlus.instance.share(
+        ShareParams(
+          files: [XFile(reportFile.path)],
+          subject: 'Error Report',
+          text: 'Error report details attached',
+        ),
       );
       return true;
     } catch (_) {

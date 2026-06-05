@@ -1,5 +1,7 @@
 // ignore_for_file: omit_local_variable_types
 
+import 'dart:async';
+
 import 'package:bug_handler/core/bug_reporter.dart';
 import 'package:bug_handler/core/error_handler.dart';
 import 'package:bug_handler/exceptions/flutter_error_exception.dart';
@@ -103,12 +105,12 @@ class _ErrorDisplayWidgetState extends State<ErrorDisplayWidget> {
   void initState() {
     super.initState();
     _exception = FlutterErrorException(widget.details);
-    _handleError();
+    unawaited(_handleError());
   }
 
   Future<void> _handleError() async {
     try {
-      await ErrorHandler.handle(
+      await ErrorHandler.handle<Object?>(
         _exception,
         _exception.stack ?? StackTrace.current,
         source: 'ErrorDisplayWidget',
@@ -189,10 +191,10 @@ class _ErrorDisplayWidgetState extends State<ErrorDisplayWidget> {
       margin: large ? null : const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color:
-            config.backgroundColor ?? theme.colorScheme.error.addOpacity(0.1),
+            config.backgroundColor ?? theme.colorScheme.error.setOpacity(0.1),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: config.borderColor ?? theme.colorScheme.error.addOpacity(0.3),
+          color: config.borderColor ?? theme.colorScheme.error.setOpacity(0.3),
         ),
       ),
       child: Column(
@@ -222,7 +224,7 @@ class _ErrorDisplayWidgetState extends State<ErrorDisplayWidget> {
               style: theme.textTheme.bodyMedium?.copyWith(
                 color:
                     config.secondaryTextColor ??
-                    theme.colorScheme.onSurface.addOpacity(0.7),
+                    theme.colorScheme.onSurface.setOpacity(0.7),
               ),
               textAlign: TextAlign.center,
             ),

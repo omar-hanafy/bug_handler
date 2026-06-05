@@ -14,8 +14,8 @@ class AuthException extends BaseException {
          devMessage: devMessage ?? userMessage,
          severity: ErrorSeverity.error,
          metadata: {
-           if (errorCode != null) 'errorCode': errorCode,
-           if (provider != null) 'provider': provider,
+           'errorCode': ?errorCode,
+           'provider': ?provider,
            ...?additionalMetadata,
          },
        );

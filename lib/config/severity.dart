@@ -14,8 +14,7 @@ enum ErrorSeverity {
 
   /// Informational issues that don't impact functionality
   /// Useful for tracking edge cases or deprecation notices
-  info
-  ;
+  info;
 
   /// Whether this severity level should trigger an automatic report
   bool get shouldAutoReport => index <= ErrorSeverity.error.index;

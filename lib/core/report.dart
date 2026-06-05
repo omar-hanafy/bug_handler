@@ -55,15 +55,15 @@ class Report {
       },
       'context': context,
       'timestamp': (timestamp ?? DateTime.now()).toIso8601String(),
-    }.encodableCopy;
+    }.toJsonMap();
 
     log('Prepared Bug Report Data!');
-    log(data.encodedJsonString);
+    log(data.encodeWithIndent);
     return data;
   }
 
   /// Convert to JSON string
-  String toJson() => toMap().encodedJsonString;
+  String toJson() => toMap().encodeWithIndent;
 
   /// Send report using configured reporter
   Future<void> send() async {

@@ -19,8 +19,8 @@ class PlatformOperationException extends BaseException {
          metadata: {
            'operation': operation,
            'isRetryable': isRetryable,
-           if (code != null) 'code': code,
-           if (details != null) 'details': details,
+           'code': ?code,
+           'details': ?details,
            ...?additionalMetadata,
          },
        );
@@ -115,9 +115,9 @@ class MediaException extends PlatformOperationException {
          additionalMetadata: {
            'mediaType': type.name,
            'contentType': mediaType,
-           if (path != null) 'path': path,
-           if (mimeType != null) 'mimeType': mimeType,
-           if (fileSize != null) 'fileSize': fileSize,
+           'path': ?path,
+           'mimeType': ?mimeType,
+           'fileSize': ?fileSize,
          },
        );
 

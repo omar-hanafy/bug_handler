@@ -13,7 +13,7 @@ class DataProcessingException extends BaseException {
   }) : super(
          severity: ErrorSeverity.error,
          metadata: {
-           if (operation != null) 'operation': operation,
+           'operation': ?operation,
            if (data != null) 'rawData': data.toString(),
            ...?additionalMetadata,
          },
