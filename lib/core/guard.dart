@@ -34,14 +34,36 @@ Future<Result<T, BaseException>> guard<T>(
     );
     if (onError != null) await onError(normalized);
 
-    final event = await BugReportClient.instance.createEvent(
+    await _tryReport(
       normalized,
       manual: manual,
       additionalContext: additionalContext,
     );
-    await BugReportClient.instance.report(event);
 
     return Err<T, BaseException>(normalized);
+  }
+}
+
+/// Reports [exception] through the client, never throwing.
+///
+/// Reporting must not change a guarded flow's outcome: when the client is not
+/// initialized yet (early bootstrap, tests) or delivery itself fails, the
+/// error is still returned to the caller as `Err` - it is just not reported.
+Future<void> _tryReport(
+  BaseException exception, {
+  required bool manual,
+  required Map<String, dynamic> additionalContext,
+}) async {
+  if (!BugReportClient.instance.isInitialized) return;
+  try {
+    final event = await BugReportClient.instance.createEvent(
+      exception,
+      manual: manual,
+      additionalContext: additionalContext,
+    );
+    await BugReportClient.instance.report(event);
+  } catch (_) {
+    // Intentionally ignored: reporting failures must never crash the app.
   }
 }
 
@@ -67,14 +89,11 @@ Result<T, BaseException> guardSync<T>(
     onError?.call(normalized);
 
     // Fire-and-forget reporting for sync guard to avoid blocking UI threads.
-    unawaited(() async {
-      final event = await BugReportClient.instance.createEvent(
-        normalized,
-        manual: manual,
-        additionalContext: additionalContext,
-      );
-      await BugReportClient.instance.report(event);
-    }());
+    unawaited(_tryReport(
+      normalized,
+      manual: manual,
+      additionalContext: additionalContext,
+    ));
 
     return Err<T, BaseException>(normalized);
   }
