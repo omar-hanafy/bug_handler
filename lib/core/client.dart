@@ -174,7 +174,38 @@ class BugReportClient {
     return ok;
   }
 
+  /// Captures and reports [exception] without ever throwing.
+  ///
+  /// This is the reporting path used by `guard`/`guardSync`,
+  /// `BugReportBindings`, and `ErrorBoundary`: it is a no-op before
+  /// [initialize], and any failure in context collection, sanitization, or
+  /// delivery is swallowed so reporting can never change the outcome of the
+  /// code being reported on. Prefer this for any fire-and-forget reporting;
+  /// use [capture] only when you want delivery failures surfaced to you.
+  Future<void> captureSafely(
+    BaseException exception, {
+    Map<String, dynamic> additionalContext = const {},
+    bool manual = false,
+    bool handled = true,
+  }) async {
+    if (!isInitialized) return;
+    try {
+      await capture(
+        exception,
+        additionalContext: additionalContext,
+        manual: manual,
+        handled: handled,
+      );
+    } catch (_) {
+      // Intentionally ignored: reporting failures must never crash the app.
+    }
+  }
+
   /// Convenience method to capture and report an exception directly.
+  ///
+  /// Throws [StateError] when the client is not initialized and propagates
+  /// pipeline/outbox failures; use [captureSafely] when reporting must not
+  /// affect the surrounding flow.
   Future<ReportEvent> capture(
     BaseException exception, {
     Map<String, dynamic> additionalContext = const {},

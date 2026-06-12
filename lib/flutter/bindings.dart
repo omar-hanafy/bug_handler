@@ -128,13 +128,10 @@ class BugReportBindings {
     );
   }
 
-  /// Creates and sends the report through the configured pipeline.
-  static Future<void> _report(BaseException exception) async {
-    try {
-      final event = await BugReportClient.instance.createEvent(exception);
-      await BugReportClient.instance.report(event);
-    } catch (_) {
-      // Intentionally ignore; avoid crashing the app due to reporting failures.
-    }
-  }
+  /// Sends the report through the configured pipeline.
+  ///
+  /// Everything reaching here escaped application code, so events are marked
+  /// `handled: false` for the `Policy.reportHandled` gate and triage.
+  static Future<void> _report(BaseException exception) =>
+      BugReportClient.instance.captureSafely(exception, handled: false);
 }

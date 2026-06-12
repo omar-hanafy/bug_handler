@@ -223,8 +223,7 @@ class ErrorBoundaryState extends State<ErrorBoundary> {
     if (_reporting) return;
     _reporting = true;
     try {
-      final event = await BugReportClient.instance.createEvent(e, manual: true);
-      await BugReportClient.instance.report(event);
+      await BugReportClient.instance.captureSafely(e, manual: true);
     } finally {
       _reporting = false;
     }
@@ -344,7 +343,7 @@ class ErrorBoundaryState extends State<ErrorBoundary> {
                         onPressed: () async {
                           await onReport();
                           if (context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
+                            ScaffoldMessenger.maybeOf(context)?.showSnackBar(
                               const SnackBar(
                                 content: Text('Error report submitted'),
                                 duration: Duration(seconds: 2),
