@@ -1,0 +1,29 @@
+{
+  "name": "bug-handler",
+  "version": "1.0.0-dev.6",
+  "description": "Package-specific skills for the bug_handler Flutter error-reporting toolkit: setup, guard-driven error handling, custom reporters/providers, privacy tuning, delivery diagnosis, legacy-API migration, and error-handling audits.",
+  "author": {
+    "name": "Omar Hanafy",
+    "url": "https://github.com/omar-hanafy"
+  },
+  "homepage": "https://github.com/omar-hanafy/bug_handler",
+  "repository": "https://github.com/omar-hanafy/bug_handler",
+  "license": "BSD-3-Clause",
+  "keywords": [
+    "flutter",
+    "dart",
+    "error-reporting",
+    "bug-handler",
+    "crash-reporting"
+  ],
+  "interface": {
+    "displayName": "Bug Handler",
+    "shortDescription": "Skills for integrating and maintaining the bug_handler Flutter package.",
+    "developerName": "Omar Hanafy",
+    "websiteURL": "https://github.com/omar-hanafy/bug_handler",
+    "defaultPrompt": [
+      "Set up bug_handler error reporting in this Flutter app",
+      "Audit this app's error handling against the bug_handler guard contract"
+    ]
+  }
+}

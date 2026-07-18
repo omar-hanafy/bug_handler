@@ -42,6 +42,9 @@ analyzer:
     - "lib/**/generated/**"
     - "build/**"
     - ".dart_tool/**"
+    # Agent-plugin tree: markdown + illustrative fixtures that reference the
+    # legacy API on purpose; never analyzed as package code.
+    - "plugins/**"
 
   # Escalate only the things that matter for publish; keep noise low.
   errors:

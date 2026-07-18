@@ -17,6 +17,40 @@ It gives you:
 
 ---
 
+## AI coding-assistant support (agent plugin)
+
+Package-specific support for **Claude Code** and **OpenAI Codex** is available as an installable agent plugin, maintained in this repository. This is developer tooling for coding agents - it is not a runtime feature of the Dart package, and it is not part of the pub.dev archive; it installs from this Git repository.
+
+Supported surfaces: Claude Code (CLI, desktop, and other Claude Code surfaces that support plugins); Codex CLI v0.131.0+ and ChatGPT Work mode (Codex plugins are currently not available in the IDE extension, Chat mode, or mobile).
+
+**Claude Code**
+
+```
+/plugin marketplace add omar-hanafy/bug_handler
+/plugin install bug-handler@bug-handler
+```
+
+**OpenAI Codex**
+
+```
+codex plugin marketplace add omar-hanafy/bug_handler
+codex plugin add bug-handler@bug-handler
+```
+
+Start a **new session** after installing (required by Codex; in Claude Code run `/reload-plugins` or restart).
+
+The plugin ships seven skills that activate automatically when relevant, or explicitly via `/bug-handler:<skill>` (Claude Code) and `$<skill>` (Codex): `setup-reporting`, `guard-workflow`, `extend-pipeline`, `tune-privacy`, `diagnose-reporting`, `migrate-legacy-api` (0.0.1-dev.x -> 1.0.0-dev.x), `audit-error-handling`.
+
+Example prompts:
+
+* "Wire bug_handler into this app - we already initialize Sentry in bootstrap."
+* "Why do errors from staging never arrive in our backend?" 
+* "Migrate this project off the old BugReporter API."
+
+Trust note: the plugin contains only instructions, reference markdown, and illustrative fixtures - no hooks, MCP servers, or executable scripts. Skills target bug_handler >= 1.0.0-dev.5. Full documentation, troubleshooting, update/removal instructions: [doc/ai-plugin.md](https://github.com/omar-hanafy/bug_handler/blob/main/doc/ai-plugin.md).
+
+---
+
 ## Table of contents
 
 1. [Installation](#installation)
@@ -710,7 +744,7 @@ A: `ReportEvent.attachments` exists in the model. Implement a custom reporter th
 
 ## License
 
-Add your license of choice to `LICENSE` in the repository and mention it here. If you plan to publish to pub.dev, include a recognized open‑source license such as MIT, BSD‑3‑Clause, or Apache‑2.0.
+BSD 3-Clause License - see [LICENSE](LICENSE).
 
 ---
 

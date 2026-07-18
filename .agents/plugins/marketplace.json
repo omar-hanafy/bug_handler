@@ -1,0 +1,16 @@
+{
+  "name": "bug-handler",
+  "interface": {
+    "displayName": "Bug Handler"
+  },
+  "plugins": [
+    {
+      "name": "bug-handler",
+      "source": {
+        "source": "local",
+        "path": "./plugins/bug-handler"
+      },
+      "category": "development"
+    }
+  ]
+}

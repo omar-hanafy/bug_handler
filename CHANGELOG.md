@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.0.0-dev.6
+
+- **Added** installable AI coding-assistant support for Claude Code and OpenAI Codex, distributed from the GitHub repository (not the pub.dev archive): `/plugin marketplace add omar-hanafy/bug_handler` (Claude Code) or `codex plugin marketplace add omar-hanafy/bug_handler` (Codex CLI), then install the `bug-handler` plugin. One shared plugin ships seven package-specific skills - `setup-reporting`, `guard-workflow`, `extend-pipeline`, `tune-privacy`, `diagnose-reporting`, `migrate-legacy-api` (0.0.1-dev.x -> 1.0.0-dev.x), and `audit-error-handling` - backed by verified API/behavior references, production integration patterns, and migration fixtures.
+- **Added** "AI coding-assistant support" section in the README and detailed plugin documentation in `doc/ai-plugin.md`; repository-level maintainer guidance (`AGENTS.md`), plugin integrity validation (`dart tool/validate_plugin.dart`), and CI.
+- **No runtime changes**: the Dart/Flutter package API and behavior are identical to 1.0.0-dev.5. The plugin tree is excluded from the pub.dev archive via `.pubignore`.
+
 ## 1.0.0-dev.5
 
 - **Added** `BugReportClient.captureSafely()`: the single never-throw reporting entry point. It is a no-op before `initialize()` and swallows any failure in context collection, sanitization, or delivery, so reporting can never crash the host app.

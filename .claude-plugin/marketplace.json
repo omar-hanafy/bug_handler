@@ -1,0 +1,24 @@
+{
+  "name": "bug-handler",
+  "owner": {
+    "name": "Omar Hanafy"
+  },
+  "metadata": {
+    "description": "Agent plugins for the bug_handler Flutter error-reporting package.",
+    "version": "1.0.0-dev.6"
+  },
+  "plugins": [
+    {
+      "name": "bug-handler",
+      "source": "./plugins/bug-handler",
+      "description": "Package-specific skills for the bug_handler Flutter error-reporting toolkit: setup, guard-driven error handling, custom reporters/providers, privacy tuning, delivery diagnosis, legacy-API migration, and error-handling audits.",
+      "version": "1.0.0-dev.6",
+      "category": "development",
+      "tags": [
+        "flutter",
+        "dart",
+        "error-reporting"
+      ]
+    }
+  ]
+}
